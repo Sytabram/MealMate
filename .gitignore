@@ -86,6 +86,7 @@ app.*.symbols
 # IDE
 .idea/
 .vscode/
+*.iml
 
 # Exceptions
 !**/ios/**/default.mode1v3
