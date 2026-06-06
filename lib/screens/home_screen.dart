@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/meal.dart';
+import '../providers/favorites_provider.dart';
 import '../widgets/meal_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,6 +21,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('MealMate'),
+          actions: [
+            IconButton(onPressed: () {
+            }, icon: Badge(
+              isLabelVisible: context.watch<FavoritesProvider>().meals.isNotEmpty,
+              label: Text(context.watch<FavoritesProvider>().meals.length.toString()),
+              child: const Icon(Icons.favorite),
+            )),
+
+          ],
         ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
