@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/meal.dart';
 import '../providers/favorites_provider.dart';
 import '../widgets/meal_card.dart';
+import 'favorites_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,10 @@ class HomeScreen extends StatelessWidget {
           title: const Text('MealMate'),
           actions: [
             IconButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FavoritesScreen()),
+              );
             }, icon: Badge(
               isLabelVisible: context.watch<FavoritesProvider>().meals.isNotEmpty,
               label: Text(context.watch<FavoritesProvider>().meals.length.toString()),
