@@ -18,4 +18,21 @@ class Meal {
     required this.ingredients,
     this.youtubeUrl
   });
+
+  factory Meal.fromJson(Map<String, dynamic> json) {
+    return Meal(
+      id: json['idMeal'] ?? '',
+      name: json['strMeal'] ?? '',
+      imageUrl: json['strMealThumb'] ?? '',
+      category: json['strCategory'] ?? '',
+      area: json['strArea']?? '',
+      instructions: json['strInstructions'] ?? '',
+      ingredients: [
+        for (int i = 1; i <= 20; i++)
+          if (json['strIngredient$i'] != null && json['strIngredient$i'] != '')
+            '${json['strMeasure$i'] ?? ''} ${json['strIngredient$i']}'.trim()
+      ],
+      youtubeUrl: json['strYoutube'],
+    );
+  }
 }
