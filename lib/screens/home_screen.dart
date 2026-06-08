@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mealmate/screens/search_results_screen.dart';
 import 'package:mealmate/widgets/category_card.dart';
 import 'package:provider/provider.dart';
 import '../models/category.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _searchController = TextEditingController();
   final ApiService _apiService = ApiService();
   List<Category> _categories = [];
   Meal? _randomMeal;
@@ -76,6 +78,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ? Center(child: Text(_error!))
           : CustomScrollView(
               slivers: [
+                SliverToBoxAdapter(child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                child: SearchBar(
+                  hintText: 'Search a recipe...',
+                  onSubmitted: (query) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchResultsScreen(query),
+                      ),
+                    );
+                  },
+                ))),
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
