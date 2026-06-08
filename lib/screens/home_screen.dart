@@ -16,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _searchController = TextEditingController();
   final ApiService _apiService = ApiService();
   List<Category> _categories = [];
   Meal? _randomMeal;
