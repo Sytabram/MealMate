@@ -8,10 +8,14 @@ class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final favorites = context.watch<FavoritesProvider>().meals;
+    final provider = context.watch<FavoritesProvider>();
+    final favorites = provider.meals;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Mes favoris')),
-      body: favorites.isEmpty
+      body: provider.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : favorites.isEmpty
           ? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

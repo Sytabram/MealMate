@@ -41,7 +41,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = context.watch<FavoritesProvider>().meals.contains(widget.meal);
+    final isFavorite = context.watch<FavoritesProvider>().isFavorite(widget.meal.id);
     return Scaffold(
         body: _isLoading
           ? const Center(child: CircularProgressIndicator())

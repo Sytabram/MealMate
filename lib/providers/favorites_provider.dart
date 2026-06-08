@@ -5,7 +5,7 @@ import '../models/meal.dart';
 class FavoritesProvider extends ChangeNotifier {
   final List<Meal> _favorites = <Meal>[];
   List<Meal> get meals => _favorites.toList();
-
+  bool isFavorite(String id) => _favorites.any((m) => m.id == id);
   final StorageService _storageService = StorageService();
   bool _isLoading = true;
   bool get isLoading => _isLoading;
@@ -27,8 +27,8 @@ class FavoritesProvider extends ChangeNotifier {
 
 
   void toggle(Meal meal) {
-    if (_favorites.contains(meal)) {
-      _favorites.remove(meal);
+    if (_favorites.any((m) => m.id == meal.id)) {
+      _favorites.removeWhere((m) => m.id == meal.id);
     } else {
       _favorites.add(meal);
     }
