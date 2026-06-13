@@ -82,8 +82,14 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   ),
                   actions: [
                     IconButton(
-                      onPressed: () =>
-                          context.read<FavoritesProvider>().toggle(_meal!),
+                      onPressed: () {
+                        context.read<FavoritesProvider>().toggle(_meal!);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(isFavorite ? 'Removed from favorites' : 'Added to favorites'),
+                          ),
+                        );
+                      },
                       icon: Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_border,
                       ),
