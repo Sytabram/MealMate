@@ -136,6 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     childAspectRatio: 1.25,
                   ),
                 ),
+                SliverPadding(
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 16),
+                ),
               ],
             ),
     );
