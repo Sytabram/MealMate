@@ -26,11 +26,7 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   void toggle() {
-    if (_isDark) {
-      _isDark = false;
-    } else {
-      _isDark = true;
-    }
+    _isDark = !_isDark;
     _storageService.saveDarkMode(_isDark);
     notifyListeners();
   }
