@@ -52,7 +52,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FavoritesScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const FavoritesScreen(),
+                ),
               );
             },
             icon: Badge(
