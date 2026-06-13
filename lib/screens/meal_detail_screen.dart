@@ -54,7 +54,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
             expandedHeight: 250,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
               title: Text(
                 _meal!.name,
                 style: const TextStyle(color: Colors.white),
@@ -125,6 +124,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                 ),
               ),
             ),
+          SliverToBoxAdapter(
+            child: SizedBox(height: MediaQuery.of(context).padding.bottom + 8),
+          ),
         ],
     )
     );
