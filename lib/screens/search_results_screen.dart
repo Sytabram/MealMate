@@ -82,6 +82,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
               onAction: () => Navigator.pop(context),
             )
           : GridView.builder(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).padding.bottom + 8,
+              ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 1.25,
