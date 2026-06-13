@@ -67,18 +67,41 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   iconTheme: const IconThemeData(color: Colors.white),
                   expandedHeight: 250,
                   pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: Text(
-                      _meal!.name,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    background: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image.network(_meal!.imageUrl, fit: BoxFit.cover),
-                        Container(color: Colors.black.withValues(alpha: 0.3)),
-                      ],
-                    ),
+                  flexibleSpace: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final settings = context
+                          .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>();
+                      final deltaExtent = settings!.maxExtent - settings.minExtent;
+                      final t = (1.0 -
+                          (settings.currentExtent - settings.minExtent) / deltaExtent)
+                          .clamp(0.0, 1.0);
+
+                      final startPad = 16.0 + (40.0 * t);
+                      final endPad = 16.0 + (40.0 * t);
+
+                      return FlexibleSpaceBar(
+                        centerTitle: true,
+                        titlePadding: EdgeInsetsDirectional.only(
+                          start: startPad,
+                          end: endPad,
+                          bottom: 16,
+                        ),
+                        title: Text(
+                          _meal!.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        background: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.network(_meal!.imageUrl, fit: BoxFit.cover),
+                            Container(color: Colors.black.withValues(alpha: 0.3)),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                   actions: [
                     IconButton(
