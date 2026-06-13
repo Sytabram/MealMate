@@ -7,14 +7,13 @@ class Category {
     required this.id,
     required this.name,
     required this.imageUrl,
-
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
-      id: json['idCategory'],
-      name: json['strCategory'],
-      imageUrl: json['strCategoryThumb'],
+      id: json['idCategory'] ?? '',
+      name: json['strCategory'] ?? '',
+      imageUrl: json['strCategoryThumb'] ?? '',
     );
   }
 }
