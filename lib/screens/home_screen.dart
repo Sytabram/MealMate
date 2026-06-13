@@ -24,9 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = true;
   String? _error;
 
-  Future<void> _loadData() async {
+  Future<void> _loadData({bool isRefresh = false}) async {
     setState(() {
-      _isLoading = true;
+      if (!isRefresh) _isLoading = true;
       _error = null;
     });
     try {
@@ -77,7 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FavoritesScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const FavoritesScreen(),
+                ),
               );
             },
             icon: Badge(
@@ -101,63 +103,67 @@ class _HomeScreenState extends State<HomeScreen> {
               actionLabel: 'Retry',
               onAction: _loadData,
             )
-          : CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SearchBar(
-                      hintText: 'Search a recipe...',
-                      onSubmitted: (query) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchResultsScreen(query),
-                          ),
-                        );
-                      },
+          : RefreshIndicator(
+              onRefresh: () => _loadData(isRefresh: true),
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SearchBar(
+                        hintText: 'Search a recipe...',
+                        onSubmitted: (query) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchResultsScreen(query),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Discovery of the day',
-                      style: Theme.of(context).textTheme.titleLarge,
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Discovery of the day',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: _randomMeal != null
-                      ? DailyMealCard(_randomMeal!)
-                      : const SizedBox.shrink(),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Categories',
-                      style: Theme.of(context).textTheme.titleLarge,
+                  SliverToBoxAdapter(
+                    child: _randomMeal != null
+                        ? DailyMealCard(_randomMeal!)
+                        : const SizedBox.shrink(),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Categories',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
                     ),
                   ),
-                ),
-                SliverGrid(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => CategoryCard(_categories[index]),
-                    childCount: _categories.length,
+                  SliverGrid(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => CategoryCard(_categories[index]),
+                      childCount: _categories.length,
+                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.25,
+                        ),
                   ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.25,
+                  SliverPadding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).padding.bottom + 8,
+                    ),
                   ),
-                ),
-                SliverPadding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom + 8,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }
