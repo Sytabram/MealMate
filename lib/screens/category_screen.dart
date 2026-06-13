@@ -4,6 +4,7 @@ import '../models/category.dart';
 import '../models/meal.dart';
 import '../providers/favorites_provider.dart';
 import '../services/api_service.dart';
+import '../widgets/loading_indicator.dart';
 import '../widgets/meal_card.dart';
 import 'favorites_screen.dart';
 
@@ -68,9 +69,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingIndicator()
           : _error != null
-          ? Center(child: Text(_error!))
+          ? EmptyState(
+              message: _error!,
+              actionLabel: 'Back',
+              onAction: () => Navigator.pop(context),
+            )
           : GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/meal.dart';
 import '../providers/favorites_provider.dart';
 import '../services/api_service.dart';
+import '../widgets/loading_indicator.dart';
 import '../widgets/meal_card.dart';
 import 'favorites_screen.dart';
 
@@ -67,21 +68,18 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingIndicator()
           : _error != null
-          ? Center(child: Text(_error!))
+          ? EmptyState(
+              message: _error!,
+              actionLabel: 'Back',
+              onAction: () => Navigator.pop(context),
+            )
           : _meals.isEmpty
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('No results found'),
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Go back'),
-                  ),
-                ],
-              ),
+          ? EmptyState(
+              message: 'No results found',
+              actionLabel: 'Go back',
+              onAction: () => Navigator.pop(context),
             )
           : GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

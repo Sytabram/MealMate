@@ -7,6 +7,7 @@ import '../models/category.dart';
 import '../models/meal.dart';
 import '../providers/favorites_provider.dart';
 import '../services/api_service.dart';
+import '../widgets/loading_indicator.dart';
 import '../widgets/daily_meal_card.dart';
 import 'favorites_screen.dart';
 
@@ -24,9 +25,20 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _error;
 
   Future<void> _loadData() async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
     try {
       final categories = await _apiService.getCategories();
       final randomMeal = await _apiService.getRandomMeal();
+      if (categories.isEmpty && randomMeal == null) {
+        setState(() {
+          _error = 'Unable to load data. Check your internet connection.';
+          _isLoading = false;
+        });
+        return;
+      }
       setState(() {
         _categories = categories;
         _randomMeal = randomMeal;
@@ -82,9 +94,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingIndicator()
           : _error != null
-          ? Center(child: Text(_error!))
+          ? EmptyState(
+              message: _error!,
+              actionLabel: 'Retry',
+              onAction: _loadData,
+            )
           : CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -137,7 +153,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SliverPadding(
-                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 8),
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom + 8,
+                  ),
                 ),
               ],
             ),
