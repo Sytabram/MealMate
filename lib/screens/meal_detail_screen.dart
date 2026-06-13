@@ -76,7 +76,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                       fit: StackFit.expand,
                       children: [
                         Image.network(_meal!.imageUrl, fit: BoxFit.cover),
-                        Container(color: Colors.black.withOpacity(0.3)),
+                        Container(color: Colors.black.withValues(alpha: 0.3)),
                       ],
                     ),
                   ),
@@ -86,7 +86,11 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                         context.read<FavoritesProvider>().toggle(_meal!);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(isFavorite ? 'Removed from favorites' : 'Added to favorites'),
+                            content: Text(
+                              isFavorite
+                                  ? 'Removed from favorites'
+                                  : 'Added to favorites',
+                            ),
                           ),
                         );
                       },
@@ -145,8 +149,10 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                        onPressed: () =>
-                            launchUrl(Uri.parse(_meal!.youtubeUrl!)),
+                        onPressed: () => launchUrl(
+                          Uri.parse(_meal!.youtubeUrl!),
+                          mode: LaunchMode.externalApplication,
+                        ),
                         child: const Text('Watch video'),
                       ),
                     ),
