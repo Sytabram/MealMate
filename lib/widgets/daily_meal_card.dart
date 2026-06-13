@@ -28,7 +28,13 @@ class DailyMealCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(meal.name),
-                    Text('See the recipe'),
+                    Text(
+                      'See the recipe',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ],
                 ),
               ),
