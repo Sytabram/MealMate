@@ -25,6 +25,11 @@ class FavoritesProvider extends ChangeNotifier {
     }
   }
 
+  void clearAll() {
+    _favorites.clear();
+    _storageService.clearFavorites();
+    notifyListeners();
+  }
 
   void toggle(Meal meal) {
     if (_favorites.any((m) => m.id == meal.id)) {
