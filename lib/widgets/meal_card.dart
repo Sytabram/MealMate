@@ -20,6 +20,8 @@ class MealCard extends StatelessWidget {
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
               meal.imageUrl,
@@ -29,7 +31,16 @@ class MealCard extends StatelessWidget {
               errorBuilder: (context, error, stackTrace) =>
                   const Icon(Icons.restaurant),
             ),
-            Text(meal.name, maxLines: 2, overflow: TextOverflow.ellipsis),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: Text(
+                  meal.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
           ],
         ),
       ),
