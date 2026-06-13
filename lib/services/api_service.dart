@@ -14,7 +14,7 @@ class ApiService {
           .timeout(Duration(seconds: 10));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final list = data['categories'] as List;
+        final list = (data['categories'] ?? []) as List;
         return list.map((e) => Category.fromJson(e)).toList();
       }
       return [];
@@ -30,7 +30,7 @@ class ApiService {
           .timeout(Duration(seconds: 10));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final list = data['meals'] as List;
+        final list = (data['meals'] ?? []) as List;
         return list.map((e) => Meal.fromJson(e)).toList();
       }
       return [];
@@ -62,7 +62,7 @@ class ApiService {
           .timeout(Duration(seconds: 10));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final list = data['meals'] as List;
+        final list = (data['meals'] ?? []) as List;
         if (list.isEmpty) return null;
         return Meal.fromJson(list.first);
       }
@@ -79,7 +79,7 @@ class ApiService {
           .timeout(Duration(seconds: 10));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final list = data['meals'] as List;
+        final list = (data['meals'] ?? []) as List;
         if (list.isEmpty) return null;
         return Meal.fromJson(list.first);
       }
