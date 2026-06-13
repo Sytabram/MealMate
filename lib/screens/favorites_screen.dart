@@ -12,7 +12,7 @@ class FavoritesScreen extends StatelessWidget {
     final favorites = provider.meals;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Mes favoris')),
+      appBar: AppBar(title: const Text('My favourites')),
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : favorites.isEmpty
@@ -20,10 +20,10 @@ class FavoritesScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Aucun favori pour le moment'),
+            const Text('No favourites at the moment'),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Découvrir des recettes'),
+              child: const Text('Discover recipes'),
             ),
           ],
         ),
