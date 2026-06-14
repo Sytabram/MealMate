@@ -126,11 +126,12 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
                       children: [
                         if (_meal!.category.isNotEmpty)
                           Chip(label: Text(_meal!.category)),
-                        const SizedBox(width: 8),
                         if (_meal!.area.isNotEmpty)
                           Chip(label: Text(_meal!.area)),
                       ],
