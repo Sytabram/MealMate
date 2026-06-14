@@ -21,15 +21,24 @@ class CategoryCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
-            Image.network(
-              category.imageUrl,
-              height: 150,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.restaurant),
+            Expanded(
+              child: Image.network(
+                category.imageUrl,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                const Icon(Icons.restaurant),
+              ),
             ),
-            Text(category.name),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                category.name,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
       ),
