@@ -72,7 +72,7 @@ The app follows the folder structure imposed by the project requirements, separa
 
 ## SUS score
 
-Average score : 96.67 / 100 (See SUS-MealMate-Bryan-Zweiacker.xlsx).
+Average score : 96.67 / 100 (See doc/SUS-MealMate-Bryan-Zweiacker.xlsx).
 
 The app is considered very user-friendly and intuitive to navigate.
 
