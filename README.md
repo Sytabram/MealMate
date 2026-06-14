@@ -72,7 +72,13 @@ The app follows the folder structure imposed by the project requirements, separa
 
 ## SUS score
 
+Average score : 96.67 / 100 (See SUS-MealMate-Bryan-Zweiacker.xlsx).
 
+The app is considered very user-friendly and intuitive to navigate.
+
+Area for improvement: Q10 suggests that the user experience could be more enjoyable —
+for example, by displaying more information about recipes in the grid view (preparation time,
+difficulty) to help users make a choice before opening the full details.
 
 ## AI tools used
 
